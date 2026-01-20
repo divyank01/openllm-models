@@ -1,3 +1,15 @@
+"phi3:3.8b-instruct-fp16":
+  project: vllm-chat
+  service_config:
+    name: phi3
+    traffic:
+      timeout: 300
+  engine_config:
+    model: microsoft/Phi-3-mini-4k-instruct
+    max_model_len: 8192
+    chat_template: "{% if messages[0]['role'] == 'system' %}\n    {% set offset = 1 %}\n{% else %}\n    {% set offset = 0 %}\n{% endif %}\n\n{% for message in messages %}\n    {% if (message['role'] == 'user') != (loop.index0 % 2 == offset) %}\n        {{ raise_exception('Conversation roles must alternate user/assistant/user/assistant/...') }}\n    {% endif %}\n\n    {{ '<|' + message['role'] + '|>\\n' + message['content'].strip() + '<|end|>' + '\\n' }}\n\n    {% if loop.last and message['role'] == 'user' and add_generation_prompt %}\n        {{ '<|assistant|>\\n' }}\n    {% endif %}\n{% endfor %}\n"
+  alias:
+    - 3.8b
 "phi4:14b":
   project: vllm-chat
   service_config:
