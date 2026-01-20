@@ -61,7 +61,8 @@ async def catch_all(full_path: str):
         {"name": "VLLM_USE_V1", "value": "1"},
     ],
     labels=dict(generator="openllm", owner="bentoml-team", aliases="17b16e,scout"),
-    image=bentoml.images.Image(python_version="3.11", lock_python_packages=False)
+    image=bentoml.images
+    .Image(python_version="3.11", lock_python_packages=False)
     .requirements_file("requirements.txt")
     .run("uv pip install --compile-bytecode flashinfer-python --find-links https://flashinfer.ai/whl/cu124/torch2.6"),
 )

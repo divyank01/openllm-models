@@ -60,7 +60,8 @@ async def catch_all(full_path: str):
         {"name": "VLLM_USE_V1", "value": "1"},
     ],
     labels=dict(generator="openllm", owner="bentoml-team", aliases="large"),
-    image=bentoml.images.Image(python_version="3.11", lock_python_packages=False)
+    image=bentoml.images
+    .Image(python_version="3.11", lock_python_packages=False)
     .system_packages("curl")
     .system_packages("git")
     .requirements_file("requirements.txt")

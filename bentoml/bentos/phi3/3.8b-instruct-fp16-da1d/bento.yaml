@@ -2,7 +2,7 @@ service: service:LLM
 name: phi3
 version: 3.8b-instruct-fp16-da1d
 bentoml_version: 1.4.12
-creation_time: '2026-01-20T07:00:13.445128+00:00'
+creation_time: '2026-01-20T07:49:41.780009+00:00'
 labels:
   generator: openllm
   owner: bentoml-team
@@ -15,7 +15,7 @@ services:
   models:
   - tag: microsoft--phi-3-mini-4k-instruct:e2b49df57c66727f40287d168b6f9824
     module: null
-    creation_time: '2026-01-20T07:00:13.401014+00:00'
+    creation_time: '2026-01-20T07:49:41.736426+00:00'
     registry: huggingface
     metadata:
       model_id: microsoft/phi-3-mini-4k-instruct
