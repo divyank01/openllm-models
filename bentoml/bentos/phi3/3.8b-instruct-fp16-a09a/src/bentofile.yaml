@@ -34,7 +34,7 @@ include:
 - ui/*
 - '*.json'
 labels:
-  aliases: 3.8b
+  aliases: 3.8b-fp16
   generator: openllm
   owner: bentoml-team
 models: []

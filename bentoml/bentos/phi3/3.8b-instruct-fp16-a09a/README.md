@@ -17,7 +17,8 @@ This model was configured with the following settings:
 ```yaml
 {
   "chat_template": "{% if messages[0][\u0027role\u0027] == \u0027system\u0027 %}\n    {% set offset = 1 %}\n{% else %}\n    {% set offset = 0 %}\n{% endif %}\n\n{% for message in messages %}\n    {% if (message[\u0027role\u0027] == \u0027user\u0027) != (loop.index0 % 2 == offset) %}\n        {{ raise_exception(\u0027Conversation roles must alternate user/assistant/user/assistant/...\u0027) }}\n    {% endif %}\n\n    {{ \u0027\u003c|\u0027 + message[\u0027role\u0027] + \u0027|\u003e\\n\u0027 + message[\u0027content\u0027].strip() + \u0027\u003c|end|\u003e\u0027 + \u0027\\n\u0027 }}\n\n    {% if loop.last and message[\u0027role\u0027] == \u0027user\u0027 and add_generation_prompt %}\n        {{ \u0027\u003c|assistant|\u003e\\n\u0027 }}\n    {% endif %}\n{% endfor %}\n",
-  "max_model_len": 8192,
+  "dtype": "half",
+  "max_model_len": 4096,
   "tensor_parallel_size": 1
 }
 ```
@@ -48,5 +49,5 @@ for chunk in client.chat.completions.create(
 ## Deployment
 
 ```bash
-openllm deploy phi3:3.8b
+openllm deploy phi3:3.8b-fp16
 ```

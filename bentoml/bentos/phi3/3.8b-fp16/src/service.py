@@ -15,7 +15,7 @@ class BentoArgs(pydantic.BaseModel):
     disable_log_stats: bool = True
     use_tqdm_on_load: bool = False
     task: str = pydantic.Field(default_factory=lambda: os.environ.get("TASK", "generate"))
-    max_model_len: int = 8192
+    max_model_len: int = 4096
     chat_template: str = """{% if messages[0]['role'] == 'system' %}
     {% set offset = 1 %}
 {% else %}
@@ -34,6 +34,7 @@ class BentoArgs(pydantic.BaseModel):
     {% endif %}
 {% endfor %}
 """
+    dtype: str = "half"
     tensor_parallel_size: int = 1
 
     @pydantic.model_serializer
@@ -71,7 +72,7 @@ async def catch_all(full_path: str):
         {"name": "VLLM_ATTENTION_BACKEND", "value": "FLASH_ATTN"},
         {"name": "VLLM_USE_V1", "value": "1"},
     ],
-    labels=dict(generator="openllm", owner="bentoml-team", aliases="3.8b"),
+    labels=dict(generator="openllm", owner="bentoml-team", aliases="3.8b-fp16"),
     image=bentoml.images
     .Image(python_version="3.11", lock_python_packages=False)
     .requirements_file("requirements.txt")
